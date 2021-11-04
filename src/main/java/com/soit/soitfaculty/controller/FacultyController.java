@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soit.soitfaculty.entity.Faculty;
+import com.soit.soitfaculty.services.FacultyService;
 
 @Controller
 @RequestMapping("/Faculties")
@@ -18,6 +19,12 @@ public class FacultyController {
 	
 	//upload Faculty Info
 	private List<Faculty> facultyMembers;
+	
+	private FacultyService facultyService;
+	
+	public FacultyController(FacultyService facSvc) {
+		this.facultyService = facSvc;
+	}
 	
 	@PostConstruct
 	private void loadData() {
@@ -40,9 +47,11 @@ public class FacultyController {
 	@GetMapping("/list")
 	public String listFaculties(Model facultiesModel) {
 		
+		//retrieve faculty from the database
+		List<Faculty> faculties = facultyService.findAll();
 		
 		//add faculties to the spring model
-		facultiesModel.addAttribute("faculties", facultyMembers);
+		facultiesModel.addAttribute("faculties", faculties);
 		return "list-faculties";
 		
 	}
