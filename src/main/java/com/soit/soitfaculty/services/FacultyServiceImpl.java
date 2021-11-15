@@ -21,7 +21,7 @@ public class FacultyServiceImpl implements FacultyService {
 
 	@Override
 	public List<Faculty> findAll() {
-		return facultyRepository.findAll();
+		return facultyRepository.findAllByOrderByLastNameAsc();
 	}
 
 	@Override

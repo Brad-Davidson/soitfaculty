@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soit.soitfaculty.entity.Faculty;
@@ -52,7 +54,26 @@ public class FacultyController {
 		
 		//add faculties to the spring model
 		facultiesModel.addAttribute("faculties", faculties);
-		return "list-faculties";
+		return "faculties/list-faculties";
 		
+	}
+	
+	@GetMapping("/viewAddForm")
+	public String viewAddForm(Model formModel) {
+		
+		//Model attributes for data binding
+		Faculty fac = new Faculty();
+		
+		formModel.addAttribute("faculty", fac);
+		
+		return "faculties/viewAddForm";
+	}
+	
+	@PostMapping("/save")
+	public String saveFaculty(@ModelAttribute("faculty") Faculty fac) {
+		facultyService.save(fac);
+		
+		//Block duplicate submission for accidental page refreshed
+		return "redirect:/Faculties/list";
 	}
 }
