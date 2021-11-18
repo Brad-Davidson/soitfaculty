@@ -11,6 +11,7 @@ public interface FacultyService {
 	public Faculty findById(int theId);
 
 	public void save(Faculty theFaculty);
+	
 
 	public void deleteById(int theId);
 }

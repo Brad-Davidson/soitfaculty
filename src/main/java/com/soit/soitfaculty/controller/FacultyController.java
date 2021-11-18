@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soit.soitfaculty.entity.Faculty;
 import com.soit.soitfaculty.services.FacultyService;
@@ -32,17 +33,17 @@ public class FacultyController {
 	private void loadData() {
 		
 		//Create Faculties
-		Faculty facultyMember1 = new Faculty(1, "Kelly", "Miller", "kmiller@mail.com");
-		Faculty facultyMember2 = new Faculty(2, "Brad", "Davidson", "bdavidson@mail.com");
-		Faculty facultyMember3 = new Faculty(3, "John", "Smith", "jsmith@mail.com");
+//		Faculty facultyMember1 = new Faculty(1, "Kelly", "Miller", "kmiller@mail.com");
+//		Faculty facultyMember2 = new Faculty(2, "Brad", "Davidson", "bdavidson@mail.com");
+//		Faculty facultyMember3 = new Faculty(3, "John", "Smith", "jsmith@mail.com");
 		
 		//Create our List
-		facultyMembers = new ArrayList<Faculty>();
-		
-		//Add to our list
-		facultyMembers.add(facultyMember1);
-		facultyMembers.add(facultyMember2);
-		facultyMembers.add(facultyMember3);
+//		facultyMembers = new ArrayList<Faculty>();
+//		
+//		//Add to our list
+//		facultyMembers.add(facultyMember1);
+//		facultyMembers.add(facultyMember2);
+//		facultyMembers.add(facultyMember3);
 	}
 	
 	//Mapping for "/list"
@@ -69,6 +70,13 @@ public class FacultyController {
 		return "faculties/viewAddForm";
 	}
 	
+	@GetMapping("/viewUpdateForm")
+	public String viewUpdateForm(@RequestParam("facultyId") int theId, Model formModel) {
+		Faculty fac = facultyService.findById(theId);
+		formModel.addAttribute("faculty", fac);
+		return "faculties/viewUpdateForm";
+	}
+	
 	@PostMapping("/save")
 	public String saveFaculty(@ModelAttribute("faculty") Faculty fac) {
 		facultyService.save(fac);
@@ -76,4 +84,5 @@ public class FacultyController {
 		//Block duplicate submission for accidental page refreshed
 		return "redirect:/Faculties/list";
 	}
+	
 }

@@ -25,6 +25,8 @@ public class Faculty {
 	private String lastName;
 	@Column(name="email")
 	private String email;
+	@Column(name="title")
+	private String title;
 
 
 	//Set the Constructor
@@ -32,11 +34,12 @@ public class Faculty {
 
 	}
 
-	public Faculty(int id, String firstName, String lastName, String email) {
+	public Faculty(int id, String firstName, String lastName, String email, String title) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.title = title;
 	}
 
 
@@ -72,10 +75,16 @@ public class Faculty {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getTitle() {
+		return this.title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	@Override
 	public String toString() {
-		return "Faculty [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "Faculty [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", title=" + title + "]";
 	}
 
 
